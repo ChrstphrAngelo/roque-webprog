@@ -139,25 +139,25 @@ const AboutPage = () => {
           <div className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-5">
 
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">
-              Visual Grid
+              Tech
             </p>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
 
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+                <img src="../src/assets/React.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
 
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+                <img src="../src/assets/Ciscopackettracer.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
 
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+                <img src="../src/assets/Nodejs.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
 
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-zinc-200">
-                <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+                <img src="../src/assets/Mongodb.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
             </div>
             <Button className="mt-5">View Section</Button>

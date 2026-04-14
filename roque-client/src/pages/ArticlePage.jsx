@@ -8,10 +8,10 @@ const ArticlePage = () => {
           Articles
         </p>
         <h1 className="max-w-xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
-          Featured articles in a simple card grid
+          My current projects
         </h1>
         <p className="mt-4 max-w-lg text-sm leading-7 text-zinc-600 sm:text-base">
-          A clean wireframe section for article thumbnails, titles, short descriptions, and one clear action per card.
+          This is a collection of my current projects and other tech I'm exploring
         </p>
         <div className="mt-6">
           <Button to="/">Back Home</Button>
@@ -24,39 +24,39 @@ const ArticlePage = () => {
             Featured Articles
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-zinc-900">
-            Article card grid
+            Projects 
           </h2>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] bg-zinc-200">
-              <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+              <img src="../src/assets/GOS.png" className="rounded-[1.25rem] w-60 h-50 object-cover object-top" />
             </div>
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
               Article 01
             </p>
             <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-              Wireframe layout basics
+              Gendai Ordering System
             </h3>
             <p className="mt-3 text-sm leading-6 text-zinc-600">
-              A simple placeholder for a featured article with image, title, and short copy.
+              A web and mobile app for managing customer orders in Gendai Japanese Restaurant.
             </p>
             <Button className="mt-4">Read More</Button>
           </article>
 
           <article className="rounded-3xl border-2 border-zinc-900 bg-zinc-100 p-4">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] bg-zinc-200">
-              <div className="h-12 w-12 border-2 border-zinc-300 bg-zinc-100" />
+              <img src="../src/assets/Electronics.png" className="rounded-[1.25rem] w-60 h-50 object-cover" />
             </div>
             <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">
               Article 02
             </p>
             <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-              Building clean sections
+              Learning Arduino
             </h3>
             <p className="mt-3 text-sm leading-6 text-zinc-600">
-              Another card using the same layout pattern for a consistent article grid.
+              Currently learning basic electronics for our capstone and some pet projects.
             </p>
             <Button className="mt-4">Read More</Button>
           </article>
@@ -69,10 +69,10 @@ const ArticlePage = () => {
               Article 03
             </p>
             <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-              Using cards and lists
+              Empty
             </h3>
             <p className="mt-3 text-sm leading-6 text-zinc-600">
-              The same low-fidelity treatment keeps the card section easy to scan.
+              -
             </p>
             <Button className="mt-4">Read More</Button>
           </article>
@@ -85,10 +85,10 @@ const ArticlePage = () => {
               Article 04
             </p>
             <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-              Low-fidelity article flow
+              Empty
             </h3>
             <p className="mt-3 text-sm leading-6 text-zinc-600">
-              A final article card to complete the featured grid layout.
+              -
             </p>
             <Button className="mt-4">Read More</Button>
           </article>
