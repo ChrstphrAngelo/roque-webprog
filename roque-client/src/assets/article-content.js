@@ -1,5 +1,5 @@
-import gendaiImage from './gendai.png';
-import electronicsImage from './Electronics.png';
+import gendaiImage from './images/gendai.png';
+import electronicsImage from './images/Electronics.png';
 
 const articles = [
   {
