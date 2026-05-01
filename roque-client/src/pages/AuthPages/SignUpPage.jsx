@@ -165,7 +165,6 @@ const SignUpPage = () => {
             Use a secure password with letters, numbers, and symbols.
           </p>
 
-          {/* Password strength meter */}
           {password && (
             <div className="mt-2">
               <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-zinc-200">
