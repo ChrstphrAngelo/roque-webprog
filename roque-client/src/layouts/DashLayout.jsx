@@ -24,30 +24,17 @@ import PeopleIcon from "@mui/icons-material/People";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import Button from "@mui/material/Button";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import ArticleIcon from "@mui/icons-material/Article";
 
 const drawerWidth = 240;
+
+// ✅ Navigation items linked to routes
 const dashboardNavItems = [
-    {
-      label: "Dashboard",
-      title: "Dashboard",
-      to: "/dashboard",
-      icon: DashboardIcon,
-    },
-    {
-      label: "Reports",
-      title: "Reports",
-      to: "/dashboard/reports",
-      icon: AssessmentIcon,
-    },
-    {
-      label: "Users",
-      title: "Users",
-      to: "/dashboard/users",
-      icon: PeopleIcon,
-    },
+  { label: "Dashboard", title: "Dashboard", to: "/dashboard", icon: DashboardIcon },
+  { label: "Reports",   title: "Reports",   to: "/dashboard/reports", icon: AssessmentIcon },
+  { label: "Users",     title: "Users",     to: "/dashboard/users",   icon: PeopleIcon },
 ];
 
+// Styles for open/closed drawer
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -113,7 +100,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0,2),
+  padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
@@ -142,7 +129,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -162,111 +148,78 @@ const DashLayout = () => {
   const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handleLogout = () => {
-    navigate("/");
-  };
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
+  const handleLogout = () => navigate("/");
 
   return (
-    <>
-        <Box sx={{ display: "flex" }}>
-          <CssBaseline />
-          {/* App Bar */}
-          {/* <AppBar position="fixed" open={open}> */}
-          <AppBar position="fixed">
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                // onClick={{ open }}
-                onClick={ open ? handleDrawerClose : handleDrawerOpen}
-                edge="start"
-                // sx={{ marginRight: 5, ...(open && { display: 'none' }) }}
-                sx={{ marginRight: 5, ...open }}
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={open ? handleDrawerClose : handleDrawerOpen}
+            edge="start"
+            sx={{ marginRight: 5 }}
+          >
+            {open ? <MenuOpenIcon /> : <MenuIcon />}
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            {pageTitle}
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
+          </Search>
+          <Button color="inherit" variant="outlined" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {dashboardNavItems.map(({ label, to, icon: Icon }) => (
+            <ListItem key={to} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                component={Link}
+                to={to}
+                selected={location.pathname === to}
+                sx={{
+                  minHeight: 48,
+                  px: 2.5,
+                  justifyContent: open ? "initial" : "center",
+                }}
               >
-                {open ? <MenuOpenIcon /> : <MenuIcon />}
-              </IconButton>
-              <Typography 
-                variant="h6"
-                nowrap
-                component="div"
-                sx={{ flexGrow: 1 }}
-              >
-                {pageTitle}
-              </Typography>
-              {/* Search */}
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase 
-                  placeholder="Search..."
-                  inputProps={{ "aria-label": "search"}}
-                />
-              </Search>
-              <Button color="inherit" variant="outlined" onClick={handleLogout}>
-                Logout
-              </Button>
-            </Toolbar>
-          </AppBar>
-          {/* Drawer */}
-          <Drawer variant="permanent" open={open}>
-            <DrawerHeader>
-              <IconButton onClick={handleDrawerClose}>
-                {theme.direction === "rtl" ? (
-                  <ChevronRightIcon />
-                ) : (
-                  <ChevronLeftIcon />
-                )}
-              </IconButton>
-            </DrawerHeader>
-            <Divider />
-            {/* Drawer List */}
-            <List>
-              {dashboardNavItems.map(({ label, to, icon: Icon}) => (
-                <ListItem ket={to} disablePadding sx={{ display: "block"}}>
-                  <ListItemButton
-                    component={Link}
-                    to={to}
-                    selected={location.pathname === to}
-                    sx={{
-                      minHeight: 48,
-                      px: 2.5,
-                      justifyContent: open ? "initial" : "center",
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth:0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Icon />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary={label}
-                      sx={{ opacity: open ? 1 : 0}}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Drawer>
-          <Box component="main" sx={{ flexGrow: 1, p:3 }}>
-              <DrawerHeader />
-              {/* Content */}
-              <Outlet />
-          </Box>
-        </Box>
-    </>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Icon />
+                </ListItemIcon>
+                <ListItemText primary={label} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Outlet />
+      </Box>
+    </Box>
   );
 };
 
