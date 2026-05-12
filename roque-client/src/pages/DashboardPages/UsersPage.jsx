@@ -60,13 +60,21 @@ const UsersPage = () => {
   const handleProcessRowUpdate = (newRow, oldRow) => { setRows(rows.map(row => row.id === newRow.id ? newRow : row)); return newRow; };
 
   return (
-    <Box>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
-        <Typography variant="h4">User Management</Typography>
-        <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd}>Add User</Button>
+    <Box sx={{ width: '100%' }}>
+      <Stack direction="row" alignItems="flex-end" sx={{ width: '100%', mb: 1 }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" fontWeight={600}>User Management</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            Manage and monitor all registered users
+          </Typography>
+        </Box>
+        <Button variant="contained" startIcon={<AddIcon />} onClick={handleOpenAdd} sx={{ mb: 0.5 }}>
+          Add User
+        </Button>
       </Stack>
-      <Paper sx={{ height: 500, width: '100%' }}>
-        <DataGrid rows={rows} columns={columns} pageSizeOptions={[5,10,25]} initialState={{ pagination: { paginationModel: { pageSize: 5 } } }} checkboxSelection disableRowSelectionOnClick processRowUpdate={handleProcessRowUpdate} />
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }} />
+      <Paper elevation={2} sx={{ height: 500, width: '100%', borderRadius: 2 }}>
+        <DataGrid rows={rows} columns={columns} pageSizeOptions={[5,10,25]} initialState={{ pagination: { paginationModel: { pageSize: 5 } } }} checkboxSelection disableRowSelectionOnClick processRowUpdate={handleProcessRowUpdate} sx={{ borderRadius: 2 }} />
       </Paper>
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="sm" fullWidth>
         <DialogTitle>{editingUser ? 'Edit User' : 'Add User'}</DialogTitle>

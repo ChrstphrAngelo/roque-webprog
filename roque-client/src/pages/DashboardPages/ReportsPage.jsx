@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Card, CardContent, Grid, Typography, Stack } from '@mui/material';
 import { BarChart, LineChart, PieChart, Gauge } from '@mui/x-charts';
 
@@ -18,7 +18,23 @@ const categoryData = [
   { id: 3, value: 15, label: 'Books', color: '#ef4444' },
 ];
 
+function useContainerWidth(ref) {
+  const [width, setWidth] = useState(500);
+  useEffect(() => {
+    if (!ref.current) return;
+    const ro = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width));
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, [ref]);
+  return width;
+}
+
 const ReportsPage = () => {
+  const barRef = useRef(null);
+  const lineRef = useRef(null);
+  const barWidth = useContainerWidth(barRef);
+  const lineWidth = useContainerWidth(lineRef);
+
   return (
     <Box width="100%" sx={{ flexGrow: 1 }}>
       <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
@@ -89,13 +105,14 @@ const ReportsPage = () => {
               <Typography variant="h6" gutterBottom>
                 Monthly Revenue & Orders
               </Typography>
-              <Box sx={{ width: '100%', height: 350 }}>
+              <Box ref={barRef} sx={{ width: '100%' }}>
                 <BarChart
                   xAxis={[{ data: salesData.map(d => d.month), scaleType: 'band', label: 'Month' }]}
                   series={[
                     { data: salesData.map(d => d.revenue), label: 'Revenue ($)', color: '#3b82f6' },
                     { data: salesData.map(d => d.orders), label: 'Orders', color: '#10b981' },
                   ]}
+                  width={barWidth}
                   height={350}
                   slotProps={{ legend: { direction: 'row', position: { vertical: 'top', horizontal: 'right' } } }}
                 />
@@ -109,12 +126,13 @@ const ReportsPage = () => {
               <Typography variant="h6" gutterBottom>
                 Sales Trend (Line Chart)
               </Typography>
-              <Box sx={{ width: '100%', height: 350 }}>
+              <Box ref={lineRef} sx={{ width: '100%' }}>
                 <LineChart
                   xAxis={[{ data: salesData.map(d => d.month), scaleType: 'point', label: 'Month' }]}
                   series={[
                     { data: salesData.map(d => d.revenue), label: 'Revenue ($)', color: '#f59e0b', curve: 'natural' },
                   ]}
+                  width={lineWidth}
                   height={350}
                 />
               </Box>
@@ -149,15 +167,15 @@ const ReportsPage = () => {
               </Typography>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={4} justifyContent="space-around" alignItems="center">
                 <Box textAlign="center">
-                  <Gauge value={85} valueMin={0} valueMax={100} text="85%" />
+                  <Gauge value={85} valueMin={0} valueMax={100} text="85%" width={150} height={150} />
                   <Typography variant="body2">Goal Completion</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Gauge value={62} valueMin={0} valueMax={100} text="62%" />
+                  <Gauge value={62} valueMin={0} valueMax={100} text="62%" width={150} height={150} />
                   <Typography variant="body2">Customer Satisfaction</Typography>
                 </Box>
                 <Box textAlign="center">
-                  <Gauge value={94} valueMin={0} valueMax={100} text="94%" />
+                  <Gauge value={94} valueMin={0} valueMax={100} text="94%" width={150} height={150} />
                   <Typography variant="body2">System Uptime</Typography>
                 </Box>
               </Stack>

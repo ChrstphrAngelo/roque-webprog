@@ -83,12 +83,6 @@ function DashboardPage() {
         </Card>
       </Stack>
     
-      {/* Gauges */}
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
-        <Gauge width={100} height={100} value={50} />
-        <Gauge width={100} height={100} value={50} valueMin={10}valueMax={60} />
-      </Stack>
-
       {/* Charts */}
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mb: 4 }}>
         <BarChart
