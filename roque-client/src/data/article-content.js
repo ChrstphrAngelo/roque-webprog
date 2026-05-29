@@ -1,4 +1,4 @@
-import gendaiImage from '../assets/images/gendai.png';
+import gendaiImage from '../assets/images/Gendai.png';
 import electronicsImage from '../assets/images/Electronics.png';
 
 const placeholderImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"%3E%3Crect width="400" height="300" fill="%23e2e8f0"/%3E%3Ctext x="50%25" y="50%25" font-size="20" fill="%2394a3b8" text-anchor="middle" dy=".3em" font-family="sans-serif"%3ENo Image%3C/text%3E%3C/svg%3E';
