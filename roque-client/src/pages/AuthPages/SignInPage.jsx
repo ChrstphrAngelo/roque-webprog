@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import { loginUser } from '../../services/UserService';
 
 const inputClasses =
   'mt-2 w-full rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-3 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500';
@@ -13,13 +14,15 @@ const SignInPage = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
+  const [apiError, setApiError] = useState('');
+  const navigate = useNavigate();
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
     return re.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = { email: '', password: '' };
     let isValid = true;
@@ -40,8 +43,19 @@ const SignInPage = () => {
     setErrors(newErrors);
 
     if (isValid) {
-      console.log('Sign In:', { email, password, rememberMe });
-      alert(`Welcome back! (Demo: ${email})`);
+      try {
+        const { data } = await loginUser({ email, password });
+        if (data.type === 'viewer') {
+          setApiError('Viewers are not allowed to log in to the dashboard.');
+          return;
+        }
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('firstName', data.firstName);
+        localStorage.setItem('type', data.type);
+        navigate('/dashboard', { state: { firstName: data.firstName, type: data.type } });
+      } catch (err) {
+        setApiError(err.response?.data?.message || 'Login failed. Please try again.');
+      }
     }
   };
 
@@ -54,6 +68,7 @@ const SignInPage = () => {
         Access your account using the same monochrome wireframe language used across the site.
       </p>
 
+      {apiError && <p className="mt-4 text-sm text-red-600">{apiError}</p>}
       <form onSubmit={handleSubmit} className="mt-8 space-y-5">
         <div>
           <label htmlFor="signin-email" className="text-sm font-medium text-zinc-700">

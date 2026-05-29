@@ -22,6 +22,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import AssessmentIcon from "@mui/icons-material/Assessment";
+import ArticleIcon from "@mui/icons-material/Article";
 import Button from "@mui/material/Button";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
@@ -29,9 +30,10 @@ const drawerWidth = 240;
 
 // ✅ Navigation items linked to routes
 const dashboardNavItems = [
-  { label: "Dashboard", title: "Dashboard", to: "/dashboard", icon: DashboardIcon },
-  { label: "Reports",   title: "Reports",   to: "/dashboard/reports", icon: AssessmentIcon },
-  { label: "Users",     title: "Users",     to: "/dashboard/users",   icon: PeopleIcon },
+  { label: "Dashboard", title: "Dashboard",  to: "/dashboard",          icon: DashboardIcon },
+  { label: "Reports",   title: "Reports",    to: "/dashboard/reports",  icon: AssessmentIcon },
+  { label: "Articles",  title: "Articles",   to: "/dashboard/articles", icon: ArticleIcon },
+  { label: "Users",     title: "Users",      to: "/dashboard/users",    icon: PeopleIcon },
 ];
 
 // Styles for open/closed drawer
