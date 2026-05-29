@@ -63,7 +63,7 @@ function DashboardPage() {
         Dashboard
       </Typography>
       {/* Summary Section */}
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}sx={{ mb: 4 }} display='flex'>
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 4 }} display='flex'>
         <Card >
           <CardContent>
             <Typography variant="h6">Total Users</Typography>
