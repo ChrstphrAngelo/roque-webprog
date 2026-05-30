@@ -1,8 +1,19 @@
 const express = require('express');
+// import functions
+const {
+  getArticles,
+  getArticleByName,
+  createArticle,
+  updateArticle,
+  deleteArticle,
+} = require('../controllers/articleController');
 
 const router = express.Router();
 
-// Article routes will be implemented in Enhancement 2
-router.get('/', (req, res) => res.json({ articles: [] }));
+router.route('/').get(getArticles).post(createArticle);
+
+router.get('/:name', getArticleByName);
+
+router.route('/:id').put(updateArticle).delete(deleteArticle);
 
 module.exports = router;

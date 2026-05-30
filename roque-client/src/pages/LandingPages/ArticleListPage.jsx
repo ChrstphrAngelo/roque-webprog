@@ -1,8 +1,29 @@
+import { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import ArticleList from '../../components/ArticleList';
-import articles from '../../data/article-content';
+import { fetchArticles } from '../../services/ArticleService';
 
 const ArticleListPage = () => {
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const { data } = await fetchArticles();
+        // Only show active articles on the public page
+        setArticles(data.articles.filter((article) => article.isActive));
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+        setError('Unable to load articles right now.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadArticles();
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-6">
       <section className="border-y-2 border-slate-300 bg-white px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
@@ -21,7 +42,16 @@ const ArticleListPage = () => {
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">Featured Articles</p>
           <h2 className="mt-2 text-2xl font-semibold text-zinc-900">Projects</h2>
         </div>
-        <ArticleList articles={articles} />
+
+        {loading ? (
+          <p className="text-sm text-zinc-500">Loading articles…</p>
+        ) : error ? (
+          <p className="text-sm text-red-600">{error}</p>
+        ) : articles.length ? (
+          <ArticleList articles={articles} />
+        ) : (
+          <p className="text-sm text-zinc-500">No articles published yet.</p>
+        )}
       </section>
     </div>
   );
