@@ -1,4 +1,6 @@
 import Button from '../../components/Button';
+import carLogo from '../../assets/images/CAR.png';
+import gendaiImage from '../../assets/images/Gendai.png';
 
 const HomePage = () => {
   return (
@@ -25,7 +27,7 @@ const HomePage = () => {
 
           <div className="rounded-3xl border-2 border-dashed border-slate-400 bg-slate-50 p-6">
             <img
-              src="../src/assets/images/CAR.png"
+              src={carLogo}
               alt="CAR logo"
               className="h-65 w-full rounded-[1.25rem] object-cover"
             />
@@ -75,7 +77,7 @@ const HomePage = () => {
           <article className="rounded-3xl border-2 border-slate-300 bg-white p-4 shadow-sm">
             <div className="flex aspect-4/3 items-center justify-center rounded-[1.25rem] bg-slate-100">
               <img
-                src="../src/assets/images/Gendai.png"
+                src={gendaiImage}
                 alt="Gendai Logo"
                 className="h-65 w-full rounded-[1.25rem] object-cover"
               />

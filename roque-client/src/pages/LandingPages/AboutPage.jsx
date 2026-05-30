@@ -1,4 +1,9 @@
 import Button from '../../components/Button';
+import profilePicture from '../../assets/images/Profile-picture.png';
+import reactImage from '../../assets/images/React.png';
+import ciscoImage from '../../assets/images/Ciscopackettracer.png';
+import nodejsImage from '../../assets/images/Nodejs.png';
+import mongodbImage from '../../assets/images/Mongodb.png';
 
 const AboutPage = () => {
   return (
@@ -9,7 +14,7 @@ const AboutPage = () => {
           <div className="rounded-3xl border-2 border-dashed border-slate-400 bg-slate-50 p-6">
             <div className="flex min-h-72 items-center justify-center rounded-[1.25rem] bg-slate-100">
               <img
-                src="../src/assets/images/Profile-picture.png"
+                src={profilePicture}
                 alt="Profile Picture"
                 className="h-64 w-64 rounded-full object-cover border-4 border-slate-400"
               />
@@ -105,16 +110,16 @@ const AboutPage = () => {
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">Tech</p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-slate-100">
-                <img src="../src/assets/images/React.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
+                <img src={reactImage} alt="React" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-slate-100">
-                <img src="../src/assets/images/Ciscopackettracer.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
+                <img src={ciscoImage} alt="Cisco Packet Tracer" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-slate-100">
-                <img src="../src/assets/images/Nodejs.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
+                <img src={nodejsImage} alt="Node.js" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
               <div className="flex aspect-square items-center justify-center rounded-[1.25rem] bg-slate-100">
-                <img src="../src/assets/images/Mongodb.png" className="rounded-[1.25rem] w-60 h-60 object-cover" />
+                <img src={mongodbImage} alt="MongoDB" className="rounded-[1.25rem] w-60 h-60 object-cover" />
               </div>
             </div>
             <Button className="mt-5">View Section</Button>
