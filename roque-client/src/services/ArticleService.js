@@ -16,7 +16,7 @@ export const fetchArticleByName = (name) => API.get(`/${name}`);
 export const createArticle = (article) => API.post('/', article);
 
 // Update article
-export const updateArticle = (id, article) => API.put(`/${id}`, article);
+export const updateArticle = (id, article) => API.put(`/${id}/update`, article);
 
 // Delete article
-export const deleteArticle = (id) => API.delete(`/${id}`);
+export const deleteArticle = (id) => API.delete(`/${id}/delete`);

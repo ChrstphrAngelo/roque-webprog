@@ -60,7 +60,11 @@ const routes = [
   },
   {
     path: "dashboard/",
-    element: <DashLayout />,
+    element: (
+      <ProtectedRoute allowedTypes={['admin', 'editor']}>
+        <DashLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
     children: [
       {

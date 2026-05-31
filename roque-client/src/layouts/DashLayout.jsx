@@ -149,10 +149,21 @@ const DashLayout = () => {
   const location = useLocation();
   const pageTitle = getPageTitle(location.pathname);
   const navigate = useNavigate();
+  const userType = localStorage.getItem('type');
 
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
-  const handleLogout = () => navigate("/");
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('type');
+    navigate("/auth/signin");
+  };
+
+  const visibleNavItems = dashboardNavItems.filter(({ to }) => {
+    if (to === '/dashboard/users') return userType === 'admin';
+    return true;
+  });
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -190,7 +201,7 @@ const DashLayout = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {dashboardNavItems.map(({ label, to, icon: Icon }) => (
+          {visibleNavItems.map(({ label, to, icon: Icon }) => (
             <ListItem key={to} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 component={Link}
