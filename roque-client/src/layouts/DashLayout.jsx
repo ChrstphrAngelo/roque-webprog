@@ -182,12 +182,6 @@ const DashLayout = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {pageTitle}
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-          </Search>
           <Button color="inherit" variant="outlined" onClick={handleLogout}>
             Logout
           </Button>

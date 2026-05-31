@@ -35,6 +35,8 @@ const blankForm = {
   isActive: true,
 };
 
+const MAX_IMAGE_SIZE = 500 * 1024; // 500KB
+
 const DashArticleListPage = () => {
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +46,7 @@ const DashArticleListPage = () => {
   const [form, setForm] = useState({ ...blankForm });
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
+  const [imageError, setImageError] = useState('');
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
 
@@ -78,10 +81,24 @@ const DashArticleListPage = () => {
     });
   }, [articles, search, filterStatus]);
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > MAX_IMAGE_SIZE) {
+      setImageError('Image must be under 500KB. Please compress or resize it first.');
+      return;
+    }
+    setImageError('');
+    const reader = new FileReader();
+    reader.onloadend = () => setForm((prev) => ({ ...prev, image: reader.result }));
+    reader.readAsDataURL(file);
+  };
+
   const handleOpen = () => {
     setIsEditing(false);
     setForm({ ...blankForm });
     setErrors({});
+    setImageError('');
     setOpen(true);
   };
 
@@ -90,6 +107,7 @@ const DashArticleListPage = () => {
     setIsEditing(false);
     setEditId(null);
     setErrors({});
+    setImageError('');
   };
 
   const handleEdit = (id) => {
@@ -203,16 +221,11 @@ const DashArticleListPage = () => {
       flex: 1.3,
       sortable: false,
       renderCell: ({ row }) => (
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', height: '100%' }}>
           <Button variant="contained" size="small" onClick={() => handleEdit(row._id)}>
             Edit
           </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            size="small"
-            onClick={() => handleDelete(row._id)}
-          >
+          <Button variant="outlined" color="error" size="small" onClick={() => handleDelete(row._id)}>
             Delete
           </Button>
           <Switch
@@ -295,9 +308,11 @@ const DashArticleListPage = () => {
             columns={columns}
             getRowId={(row) => row._id}
             loading={loading}
+            rowHeight={52}
             pageSizeOptions={[10, 20, 50]}
             initialState={{ pagination: { paginationModel: { pageSize: 10, page: 0 } } }}
             disableRowSelectionOnClick
+            sx={{ '& .MuiDataGrid-cell': { display: 'flex', alignItems: 'center' } }}
           />
         )}
       </Box>
@@ -323,13 +338,35 @@ const DashArticleListPage = () => {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
-            <TextField
-              label="Image URL (optional)"
-              fullWidth
-              variant="standard"
-              value={form.image}
-              onChange={(e) => setForm({ ...form, image: e.target.value })}
-            />
+            <Box>
+              <Typography variant="caption" color="text.secondary" sx={{ mb: 0.5, display: 'block' }}>
+                Image
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                {form.image && (
+                  <Box
+                    component="img"
+                    src={form.image}
+                    alt="Preview"
+                    sx={{ width: 80, height: 60, objectFit: 'cover', borderRadius: 1, border: '1px solid #ddd' }}
+                  />
+                )}
+                <Button variant="outlined" size="small" component="label">
+                  {form.image ? 'Change Image' : 'Upload Image'}
+                  <input type="file" hidden accept="image/*" onChange={handleImageUpload} />
+                </Button>
+                {form.image && (
+                  <Button size="small" color="error" onClick={() => setForm({ ...form, image: '' })}>
+                    Remove
+                  </Button>
+                )}
+              </Box>
+              {imageError && (
+                <Typography variant="caption" color="error" sx={{ mt: 0.5, display: 'block' }}>
+                  {imageError}
+                </Typography>
+              )}
+            </Box>
             <TextField
               label="Content (one paragraph per line)"
               fullWidth
